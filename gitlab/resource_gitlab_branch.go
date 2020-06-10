@@ -8,7 +8,7 @@ import (
 )
 
 func ResourceGitlabBranch() *schema.Resource {
-  return &schema.Resource{
+	return &schema.Resource{
 		Create: resourceGitlabBranchCreate,
 		Read:   resourceGitlabBranchRead,
 		Delete: resourceGitlabBranchDelete,
@@ -24,7 +24,7 @@ func ResourceGitlabBranch() *schema.Resource {
 				Required: true,
 			},
 			"reference_branch": {
-				Type: 		schema.TypeString,
+				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -49,7 +49,7 @@ func resourceGitlabBranchCreate(d *schema.ResourceData, meta interface{}) error 
 	project := d.Get("project").(string)
 	options := &gitlab.CreateBranchOptions{
 		Branch: gitlab.String(d.Get("name").(string)),
-		Ref:		gitlab.String(d.Get("reference_branch").(string))
+		Ref:    gitlab.String(d.Get("reference_branch").(string)),
 	}
 
 	log.Printf("[DEBUG] create gitlab branch %s", *options.Name)
@@ -93,12 +93,12 @@ func resourceGitlabBranchRead(d *schema.ResourceData, meta interface{}) error {
 }
 
 func resourceGitlabBranchDelete(d *schema.ResourceData, meta interface{}) error {
-  client := meta.(*gitlab.Client)
-  project := d.Get("project").(string)
-  branch := d.Get("name").(string)
+	client := meta.(*gitlab.Client)
+	project := d.Get("project").(string)
+	branch := d.Get("name").(string)
 
-  log.Printf("[DEBUG] Delete branch %s for project %s", branch, project)
+	log.Printf("[DEBUG] Delete branch %s for project %s", branch, project)
 
-  _, err := client.Branches.DeleteBranch(branch)
-  return err
+	_, err := client.Branches.DeleteBranch(branch)
+	return err
 }
