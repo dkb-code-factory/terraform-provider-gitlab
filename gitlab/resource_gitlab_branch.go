@@ -7,7 +7,7 @@ import (
 	gitlab "github.com/xanzy/go-gitlab"
 )
 
-func ResourceGitlabBranch() *schema.Resource {
+func resourceGitlabBranch() *schema.Resource {
 	return &schema.Resource{
 		Create: resourceGitlabBranchCreate,
 		Read:   resourceGitlabBranchRead,
